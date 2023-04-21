@@ -1,6 +1,5 @@
 from flask import Flask
 from .extensions import db, migrate
-from sqlalchemy import text
 from .titles import Title
 
 from .routes.api import api
@@ -11,7 +10,8 @@ import sqlite3
 
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] \
+        = 'sqlite:///data.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
@@ -29,10 +29,7 @@ def create_app():
 
     return app
 
-
-
-
-def add_images():
+# def add_images():
     # Connect to the database
     conn = sqlite3.connect('instance/data.db')
     c = conn.cursor()

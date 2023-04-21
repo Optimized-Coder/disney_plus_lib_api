@@ -59,12 +59,12 @@ def get_top_100_titles():
 
 def get_title_by_genre(genre):
     selected_titles = []
+    
     all_titles = Title.query.all()
     for title in all_titles:
         genres = title.get_genres_as_list()
         if genre.title() in genres:
             selected_titles.append(title.to_dict())
-    print(len(selected_titles))
     return jsonify(selected_titles)
 
 @api.route('/decade/<int:decade>')

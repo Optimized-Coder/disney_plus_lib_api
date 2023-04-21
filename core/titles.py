@@ -20,12 +20,17 @@ class Title(db.Model):
 
     def format_genres(self):
         x = self.genre
-        new_genre = x.replace('[', '').replace(']', '').replace("'", '').title()
+        new_genre = x.replace('[', '')\
+            .replace(']', '')\
+                .replace("'", '')\
+                    .title()
         return new_genre
 
     def format_production_countries(self):
         x = self.production_countries
-        new_countries = x.replace('[', '').replace(']', '').replace("'", '')
+        new_countries = x.replace('[', '')\
+            .replace(']', '')\
+                .replace("'", '')
         return new_countries
     
     def get_genres_as_list(self):
@@ -42,7 +47,7 @@ class Title(db.Model):
             'title': self.title,
             'content_type': self.content_type.lower(),
             'description': self.description,
-           'release_year': self.release_year,
+            'release_year': self.release_year,
             'age_certification': self.age_certification,
             'runtime_mins': self.runtime,
             'genre': self.format_genres(),

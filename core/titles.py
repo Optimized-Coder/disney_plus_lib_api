@@ -1,3 +1,4 @@
+# core/titles.py
 from .extensions import db
 
 class Title(db.Model):
@@ -20,11 +21,14 @@ class Title(db.Model):
 
     def format_genres(self):
         x = self.genre
-        new_genre = x.replace('[', '')\
-            .replace(']', '')\
-                .replace("'", '')\
-                    .title()
+        if x is None or x == '':
+            return ''
+        new_genre = x.replace('[', '') \
+            .replace(']', '') \
+            .replace("'", '') \
+            .title()
         return new_genre
+
 
     def format_production_countries(self):
         x = self.production_countries

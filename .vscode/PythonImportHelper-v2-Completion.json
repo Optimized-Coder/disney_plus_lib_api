@@ -1,0 +1,468 @@
+[
+    {
+        "label": "Blueprint",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "current_app",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Migrate",
+        "importPath": "flask_migrate",
+        "description": "flask_migrate",
+        "isExtraImport": true,
+        "detail": "flask_migrate",
+        "documentation": {}
+    },
+    {
+        "label": "op",
+        "importPath": "alembic",
+        "description": "alembic",
+        "isExtraImport": true,
+        "detail": "alembic",
+        "documentation": {}
+    },
+    {
+        "label": "op",
+        "importPath": "alembic",
+        "description": "alembic",
+        "isExtraImport": true,
+        "detail": "alembic",
+        "documentation": {}
+    },
+    {
+        "label": "op",
+        "importPath": "alembic",
+        "description": "alembic",
+        "isExtraImport": true,
+        "detail": "alembic",
+        "documentation": {}
+    },
+    {
+        "label": "context",
+        "importPath": "alembic",
+        "description": "alembic",
+        "isExtraImport": true,
+        "detail": "alembic",
+        "documentation": {}
+    },
+    {
+        "label": "sqlalchemy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "fileConfig",
+        "importPath": "logging.config",
+        "description": "logging.config",
+        "isExtraImport": true,
+        "detail": "logging.config",
+        "documentation": {}
+    },
+    {
+        "label": "create_app",
+        "importPath": "core",
+        "description": "core",
+        "isExtraImport": true,
+        "detail": "core",
+        "documentation": {}
+    },
+    {
+        "label": "check_title_exists",
+        "kind": 2,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "def check_title_exists(title_id):\n    title = Title.query.filter_by(id=title_id).first()\n    if title is None:\n        return False\n    return True\n'''\n***********\nAPI ENDPOINTS\n***********\n'''",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "get_all_titles",
+        "kind": 2,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "def get_all_titles():\n    all_titles = Title.query.all()\n    return jsonify([title.to_dict()\\\n                    for title in all_titles])\n@api.route('/title/<title_id>/')\ndef get_title(title_id):\n    title_exists = check_title_exists(title_id)\n    title = Title.query.filter_by(id=title_id).first()\n    if not title_exists:\n        return 'Title Not Found'",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "get_title",
+        "kind": 2,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "def get_title(title_id):\n    title_exists = check_title_exists(title_id)\n    title = Title.query.filter_by(id=title_id).first()\n    if not title_exists:\n        return 'Title Not Found'\n    else:\n        return jsonify(title.to_dict())\n@api.route('/movies/')\ndef get_all_movies():\n    all_movies = Title.query.filter_by(content_type='MOVIE')",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "get_all_movies",
+        "kind": 2,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "def get_all_movies():\n    all_movies = Title.query.filter_by(content_type='MOVIE')\n    return jsonify([movie.to_dict()\\\n                    for movie in all_movies])\n@api.route('/shows/')\ndef get_all_shows():\n    all_shows = Title.query.filter_by(content_type='SHOW')\n    return jsonify([show.to_dict()\\\n                    for show in all_shows])\n@api.route('/top-20/')",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "get_all_shows",
+        "kind": 2,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "def get_all_shows():\n    all_shows = Title.query.filter_by(content_type='SHOW')\n    return jsonify([show.to_dict()\\\n                    for show in all_shows])\n@api.route('/top-20/')\ndef get_top_20_titles():\n    all_titles = Title.query.order_by(Title.tmdb_rating.desc()).limit(20)\n    return jsonify([title.to_dict()\\\n                    for title in all_titles])\n@api.route('/top-100/')",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "get_top_20_titles",
+        "kind": 2,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "def get_top_20_titles():\n    all_titles = Title.query.order_by(Title.tmdb_rating.desc()).limit(20)\n    return jsonify([title.to_dict()\\\n                    for title in all_titles])\n@api.route('/top-100/')\ndef get_top_100_titles():\n    all_titles = Title.query.order_by(Title.tmdb_rating.desc()).limit(100)\n    return jsonify([title.to_dict()\\\n                    for title in all_titles])\n@api.route('/genre/<genre>/')",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "get_top_100_titles",
+        "kind": 2,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "def get_top_100_titles():\n    all_titles = Title.query.order_by(Title.tmdb_rating.desc()).limit(100)\n    return jsonify([title.to_dict()\\\n                    for title in all_titles])\n@api.route('/genre/<genre>/')\ndef get_title_by_genre(genre):\n    selected_titles = []\n    all_titles = Title.query.all()\n    for title in all_titles:\n        genres = title.get_genres_as_list()",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "get_title_by_genre",
+        "kind": 2,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "def get_title_by_genre(genre):\n    selected_titles = []\n    all_titles = Title.query.all()\n    for title in all_titles:\n        genres = title.get_genres_as_list()\n        if genre.title() in genres:\n            selected_titles.append(title.to_dict())\n    return jsonify(selected_titles)\n@api.route('/decade/<int:decade>')\ndef get_title_by_decade(decade):",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "get_title_by_decade",
+        "kind": 2,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "def get_title_by_decade(decade):\n    selected_titles = []\n    all_titles = Title.query.all()\n    for title in all_titles:\n        if title.convert_year_to_decade() == decade:\n            selected_titles.append(title.to_dict())\n    return jsonify(selected_titles)",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "api",
+        "kind": 5,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "api = Blueprint('api', __name__, url_prefix='/api')\ndef check_title_exists(title_id):\n    title = Title.query.filter_by(id=title_id).first()\n    if title is None:\n        return False\n    return True\n'''\n***********\nAPI ENDPOINTS\n***********",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 5,
+        "importPath": "core.extensions",
+        "description": "core.extensions",
+        "peekOfCode": "db = SQLAlchemy()\nmigrate = Migrate()",
+        "detail": "core.extensions",
+        "documentation": {}
+    },
+    {
+        "label": "migrate",
+        "kind": 5,
+        "importPath": "core.extensions",
+        "description": "core.extensions",
+        "peekOfCode": "migrate = Migrate()",
+        "detail": "core.extensions",
+        "documentation": {}
+    },
+    {
+        "label": "Title",
+        "kind": 6,
+        "importPath": "core.titles",
+        "description": "core.titles",
+        "peekOfCode": "class Title(db.Model):\n    __tablename__ = 'data'\n    id = db.Column('id', db.String, primary_key=True)\n    title = db.Column('title', db.String)\n    content_type = db.Column('type', db.String)\n    description = db.Column('description', db.String)\n    release_year = db.Column('release_year', db.Integer)\n    age_certification = db.Column('age_certification', db.String)\n    runtime = db.Column('runtime', db.Integer)\n    genre = db.Column('genres', db.String)",
+        "detail": "core.titles",
+        "documentation": {}
+    },
+    {
+        "label": "upgrade",
+        "kind": 2,
+        "importPath": "migrations.versions.2287956b598f_",
+        "description": "migrations.versions.2287956b598f_",
+        "peekOfCode": "def upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.alter_column('id',\n               existing_type=sa.TEXT(),\n               type_=sa.String(),\n               nullable=False)\n        batch_op.alter_column('title',\n               existing_type=sa.TEXT(),\n               type_=sa.String(),",
+        "detail": "migrations.versions.2287956b598f_",
+        "documentation": {}
+    },
+    {
+        "label": "downgrade",
+        "kind": 2,
+        "importPath": "migrations.versions.2287956b598f_",
+        "description": "migrations.versions.2287956b598f_",
+        "peekOfCode": "def downgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.alter_column('tmdb_score',\n               existing_type=sa.Float(),\n               type_=sa.REAL(),\n               existing_nullable=True)\n        batch_op.alter_column('tmdb_popularity',\n               existing_type=sa.Float(),\n               type_=sa.REAL(),",
+        "detail": "migrations.versions.2287956b598f_",
+        "documentation": {}
+    },
+    {
+        "label": "revision",
+        "kind": 5,
+        "importPath": "migrations.versions.2287956b598f_",
+        "description": "migrations.versions.2287956b598f_",
+        "peekOfCode": "revision = '2287956b598f'\ndown_revision = None\nbranch_labels = None\ndepends_on = None\ndef upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.alter_column('id',\n               existing_type=sa.TEXT(),\n               type_=sa.String(),",
+        "detail": "migrations.versions.2287956b598f_",
+        "documentation": {}
+    },
+    {
+        "label": "down_revision",
+        "kind": 5,
+        "importPath": "migrations.versions.2287956b598f_",
+        "description": "migrations.versions.2287956b598f_",
+        "peekOfCode": "down_revision = None\nbranch_labels = None\ndepends_on = None\ndef upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.alter_column('id',\n               existing_type=sa.TEXT(),\n               type_=sa.String(),\n               nullable=False)",
+        "detail": "migrations.versions.2287956b598f_",
+        "documentation": {}
+    },
+    {
+        "label": "branch_labels",
+        "kind": 5,
+        "importPath": "migrations.versions.2287956b598f_",
+        "description": "migrations.versions.2287956b598f_",
+        "peekOfCode": "branch_labels = None\ndepends_on = None\ndef upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.alter_column('id',\n               existing_type=sa.TEXT(),\n               type_=sa.String(),\n               nullable=False)\n        batch_op.alter_column('title',",
+        "detail": "migrations.versions.2287956b598f_",
+        "documentation": {}
+    },
+    {
+        "label": "depends_on",
+        "kind": 5,
+        "importPath": "migrations.versions.2287956b598f_",
+        "description": "migrations.versions.2287956b598f_",
+        "peekOfCode": "depends_on = None\ndef upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.alter_column('id',\n               existing_type=sa.TEXT(),\n               type_=sa.String(),\n               nullable=False)\n        batch_op.alter_column('title',\n               existing_type=sa.TEXT(),",
+        "detail": "migrations.versions.2287956b598f_",
+        "documentation": {}
+    },
+    {
+        "label": "upgrade",
+        "kind": 2,
+        "importPath": "migrations.versions.885bcabc0d68_",
+        "description": "migrations.versions.885bcabc0d68_",
+        "peekOfCode": "def upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.alter_column('img_url',\n               existing_type=sa.TEXT(),\n               type_=sa.String(),\n               existing_nullable=True)\n    # ### end Alembic commands ###\ndef downgrade():\n    # ### commands auto generated by Alembic - please adjust! ###",
+        "detail": "migrations.versions.885bcabc0d68_",
+        "documentation": {}
+    },
+    {
+        "label": "downgrade",
+        "kind": 2,
+        "importPath": "migrations.versions.885bcabc0d68_",
+        "description": "migrations.versions.885bcabc0d68_",
+        "peekOfCode": "def downgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.alter_column('img_url',\n               existing_type=sa.String(),\n               type_=sa.TEXT(),\n               existing_nullable=True)\n    # ### end Alembic commands ###",
+        "detail": "migrations.versions.885bcabc0d68_",
+        "documentation": {}
+    },
+    {
+        "label": "revision",
+        "kind": 5,
+        "importPath": "migrations.versions.885bcabc0d68_",
+        "description": "migrations.versions.885bcabc0d68_",
+        "peekOfCode": "revision = '885bcabc0d68'\ndown_revision = '2287956b598f'\nbranch_labels = None\ndepends_on = None\ndef upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.alter_column('img_url',\n               existing_type=sa.TEXT(),\n               type_=sa.String(),",
+        "detail": "migrations.versions.885bcabc0d68_",
+        "documentation": {}
+    },
+    {
+        "label": "down_revision",
+        "kind": 5,
+        "importPath": "migrations.versions.885bcabc0d68_",
+        "description": "migrations.versions.885bcabc0d68_",
+        "peekOfCode": "down_revision = '2287956b598f'\nbranch_labels = None\ndepends_on = None\ndef upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.alter_column('img_url',\n               existing_type=sa.TEXT(),\n               type_=sa.String(),\n               existing_nullable=True)",
+        "detail": "migrations.versions.885bcabc0d68_",
+        "documentation": {}
+    },
+    {
+        "label": "branch_labels",
+        "kind": 5,
+        "importPath": "migrations.versions.885bcabc0d68_",
+        "description": "migrations.versions.885bcabc0d68_",
+        "peekOfCode": "branch_labels = None\ndepends_on = None\ndef upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.alter_column('img_url',\n               existing_type=sa.TEXT(),\n               type_=sa.String(),\n               existing_nullable=True)\n    # ### end Alembic commands ###",
+        "detail": "migrations.versions.885bcabc0d68_",
+        "documentation": {}
+    },
+    {
+        "label": "depends_on",
+        "kind": 5,
+        "importPath": "migrations.versions.885bcabc0d68_",
+        "description": "migrations.versions.885bcabc0d68_",
+        "peekOfCode": "depends_on = None\ndef upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.alter_column('img_url',\n               existing_type=sa.TEXT(),\n               type_=sa.String(),\n               existing_nullable=True)\n    # ### end Alembic commands ###\ndef downgrade():",
+        "detail": "migrations.versions.885bcabc0d68_",
+        "documentation": {}
+    },
+    {
+        "label": "upgrade",
+        "kind": 2,
+        "importPath": "migrations.versions.dc1b3b3e1711_",
+        "description": "migrations.versions.dc1b3b3e1711_",
+        "peekOfCode": "def upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.drop_column('img_url')\n    # ### end Alembic commands ###\ndef downgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.add_column(sa.Column('img_url', sa.VARCHAR(), nullable=True))\n    # ### end Alembic commands ###",
+        "detail": "migrations.versions.dc1b3b3e1711_",
+        "documentation": {}
+    },
+    {
+        "label": "downgrade",
+        "kind": 2,
+        "importPath": "migrations.versions.dc1b3b3e1711_",
+        "description": "migrations.versions.dc1b3b3e1711_",
+        "peekOfCode": "def downgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.add_column(sa.Column('img_url', sa.VARCHAR(), nullable=True))\n    # ### end Alembic commands ###",
+        "detail": "migrations.versions.dc1b3b3e1711_",
+        "documentation": {}
+    },
+    {
+        "label": "revision",
+        "kind": 5,
+        "importPath": "migrations.versions.dc1b3b3e1711_",
+        "description": "migrations.versions.dc1b3b3e1711_",
+        "peekOfCode": "revision = 'dc1b3b3e1711'\ndown_revision = '885bcabc0d68'\nbranch_labels = None\ndepends_on = None\ndef upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.drop_column('img_url')\n    # ### end Alembic commands ###\ndef downgrade():",
+        "detail": "migrations.versions.dc1b3b3e1711_",
+        "documentation": {}
+    },
+    {
+        "label": "down_revision",
+        "kind": 5,
+        "importPath": "migrations.versions.dc1b3b3e1711_",
+        "description": "migrations.versions.dc1b3b3e1711_",
+        "peekOfCode": "down_revision = '885bcabc0d68'\nbranch_labels = None\ndepends_on = None\ndef upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.drop_column('img_url')\n    # ### end Alembic commands ###\ndef downgrade():\n    # ### commands auto generated by Alembic - please adjust! ###",
+        "detail": "migrations.versions.dc1b3b3e1711_",
+        "documentation": {}
+    },
+    {
+        "label": "branch_labels",
+        "kind": 5,
+        "importPath": "migrations.versions.dc1b3b3e1711_",
+        "description": "migrations.versions.dc1b3b3e1711_",
+        "peekOfCode": "branch_labels = None\ndepends_on = None\ndef upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.drop_column('img_url')\n    # ### end Alembic commands ###\ndef downgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:",
+        "detail": "migrations.versions.dc1b3b3e1711_",
+        "documentation": {}
+    },
+    {
+        "label": "depends_on",
+        "kind": 5,
+        "importPath": "migrations.versions.dc1b3b3e1711_",
+        "description": "migrations.versions.dc1b3b3e1711_",
+        "peekOfCode": "depends_on = None\ndef upgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.drop_column('img_url')\n    # ### end Alembic commands ###\ndef downgrade():\n    # ### commands auto generated by Alembic - please adjust! ###\n    with op.batch_alter_table('data', schema=None) as batch_op:\n        batch_op.add_column(sa.Column('img_url', sa.VARCHAR(), nullable=True))",
+        "detail": "migrations.versions.dc1b3b3e1711_",
+        "documentation": {}
+    },
+    {
+        "label": "get_engine",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def get_engine():\n    try:\n        # this works with Flask-SQLAlchemy<3 and Alchemical\n        return current_app.extensions['migrate'].db.get_engine()\n    except TypeError:\n        # this works with Flask-SQLAlchemy>=3\n        return current_app.extensions['migrate'].db.engine\ndef get_engine_url():\n    try:\n        return get_engine().url.render_as_string(hide_password=False).replace(",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "get_engine_url",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def get_engine_url():\n    try:\n        return get_engine().url.render_as_string(hide_password=False).replace(\n            '%', '%%')\n    except AttributeError:\n        return str(get_engine().url).replace('%', '%%')\n# add your model's MetaData object here\n# for 'autogenerate' support\n# from myapp import mymodel\n# target_metadata = mymodel.Base.metadata",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "get_metadata",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def get_metadata():\n    if hasattr(target_db, 'metadatas'):\n        return target_db.metadatas[None]\n    return target_db.metadata\ndef run_migrations_offline():\n    \"\"\"Run migrations in 'offline' mode.\n    This configures the context with just a URL\n    and not an Engine, though an Engine is acceptable\n    here as well.  By skipping the Engine creation\n    we don't even need a DBAPI to be available.",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "run_migrations_offline",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def run_migrations_offline():\n    \"\"\"Run migrations in 'offline' mode.\n    This configures the context with just a URL\n    and not an Engine, though an Engine is acceptable\n    here as well.  By skipping the Engine creation\n    we don't even need a DBAPI to be available.\n    Calls to context.execute() here emit the given string to the\n    script output.\n    \"\"\"\n    url = config.get_main_option(\"sqlalchemy.url\")",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "run_migrations_online",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def run_migrations_online():\n    \"\"\"Run migrations in 'online' mode.\n    In this scenario we need to create an Engine\n    and associate a connection with the context.\n    \"\"\"\n    # this callback is used to prevent an auto-migration from being generated\n    # when there are no changes to the schema\n    # reference: http://alembic.zzzcomputing.com/en/latest/cookbook.html\n    def process_revision_directives(context, revision, directives):\n        if getattr(config.cmd_opts, 'autogenerate', False):",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "config",
+        "kind": 5,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "config = context.config\n# Interpret the config file for Python logging.\n# This line sets up loggers basically.\nfileConfig(config.config_file_name)\nlogger = logging.getLogger('alembic.env')\ndef get_engine():\n    try:\n        # this works with Flask-SQLAlchemy<3 and Alchemical\n        return current_app.extensions['migrate'].db.get_engine()\n    except TypeError:",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "logger = logging.getLogger('alembic.env')\ndef get_engine():\n    try:\n        # this works with Flask-SQLAlchemy<3 and Alchemical\n        return current_app.extensions['migrate'].db.get_engine()\n    except TypeError:\n        # this works with Flask-SQLAlchemy>=3\n        return current_app.extensions['migrate'].db.engine\ndef get_engine_url():\n    try:",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "target_db",
+        "kind": 5,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "target_db = current_app.extensions['migrate'].db\n# other values from the config, defined by the needs of env.py,\n# can be acquired:\n# my_important_option = config.get_main_option(\"my_important_option\")\n# ... etc.\ndef get_metadata():\n    if hasattr(target_db, 'metadatas'):\n        return target_db.metadatas[None]\n    return target_db.metadata\ndef run_migrations_offline():",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app = create_app()\nif __name__ == '__main__':\n    app.run(debug=True)",
+        "detail": "app",
+        "documentation": {}
+    }
+]

@@ -1,14 +1,21 @@
 from flask import Flask
-from .extensions import db, migrate
-from .titles import Title
-
-from .routes.api import api
-
-import requests
-from bs4 import BeautifulSoup
+from os import path
+import pandas as pd
 import sqlite3
 
+from .extensions import db, migrate
+from .titles import Title
+from .routes.api import api
+
+
 def create_app():
+    # runs add_data function if data does not exist
+    if not path.exists('./instance/data.db'):
+        add_data('data.csv')
+        print('database added successfully')
+    else:
+        print('database already exists')
+    
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] \
         = 'sqlite:///data.db'
@@ -21,54 +28,22 @@ def create_app():
 
     app.register_blueprint(api)
 
-    q = Title.query.first()
-    print(q.release_year)
-
-    print(q.convert_year_to_decade())
-
-
     return app
 
-# def add_images():
-    # Connect to the database
-    conn = sqlite3.connect('instance/data.db')
-    c = conn.cursor()
+def add_data(csv_filename):
+# Uses pandas to load data from a csv file to sqlite database
+    """
+    Adds data from a csv file to a sqlite database.
+    """
+    conn = sqlite3.connect('data.db')
+    df = pd.read_csv(csv_filename)
 
-    # Select all records from the data table
-    c.execute("SELECT * FROM data")
-    rows = c.fetchall()
+    # clean data
+    df.columns = df.columns.str.strip()
+    df.columns = df.columns.str.lower()
 
-    # Loop through each record
-    counter = 0
-    for i, row in enumerate(rows):
-        # Extract the movie title from the database
-        title = row[1]
-        
-        # Construct the Google Images search URL
-        search_url = 'https://www.google.com/search?q=' + title + ' movie poster&tbm=isch'
-        
-        # Send a GET request to the search URL
-        response = requests.get(search_url)
-        
-        # Parse the HTML response using BeautifulSoup
-        soup = BeautifulSoup(response.content, 'html.parser')
-        
-        # Extract the URL of the first image result
-        image_url = soup.find('img')['src']
-        
-        # Update the database record with the image URL
-        c.execute("UPDATE data SET img_url = ? WHERE id = ?", (image_url, row[0]))
-        
-        # Increment the counter
-        counter += 1
-        
-        # Print the counter every 10 records
-        if counter % 10 == 0:
-            print(f"Processed {counter} records so far.")
-        
-    # Commit the changes to the database
-    conn.commit()
-
-    # Close the database connection
+    df.to_sql('data', conn, if_exists='replace', index=False)
     conn.close()
+    print('Data added to database.')
+
 
